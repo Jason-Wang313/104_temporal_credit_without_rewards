@@ -2,21 +2,25 @@
 
         Paper: 104 Temporal Credit Without Rewards
 
-        ## Strongest Prior-Work Threats
+        ## Strongest Technical Threats
         - ReCoVLA: VLM-Guided Reward Compilation for Failure Recovery in Vision-Language-Action Policies (2026)
 - Compliant Motion Planning Integrating Human Skill for Robotic Arm Collecting Tomato Bunch Based on Improved DDPG (2025)
 - CLIP-ReID: Exploiting Vision-Language Model for Image Re-identification without Concrete Text Labels (2023)
 - PI-VLA: Adaptive Symmetry-Aware Decision-Making for Long-Horizon Vision-Language-Action Manipulation (2026)
-- Forecasting Long-term Spatial-temporal Dynamics with Generative Transformer Networks ()
-- Evaluating Long-Range Temporal Structure in Foundation Model-Based Forecasts of Heartbeat Dynamics ()
+- Forecasting Long-term Spatial-temporal Dynamics with Generative Transformer Networks (n.d.)
+- Evaluating Long-Range Temporal Structure in Foundation Model-Based Forecasts of Heartbeat Dynamics (n.d.)
+- BOLT: Boost Large Vision-Language Model Without Training for Long-Form Video Understanding (2025)
+- Multi-Stage Learning for Grasp-Constrained Object Manipulation with a Simulated Panda Robot (2020)
 
-        ## Response
-        The paper no longer claims that generic world modeling, generic uncertainty, or larger datasets are novel. The defensible contribution is the combination of explicit unrealized physical branches, a tail-risk objective over those branches, diagnostic probing, and failure memory.
+        ## ICLR Main Response
+        A hostile ICLR reviewer would be correct to reject this as a main-conference submission. The v2 paper has reproducible synthetic evidence and careful limitations, but it does not contain the real robot, high-fidelity simulator, learned model, or manual related-work depth needed for the ICLR main track.
 
-        ## What Is Not Claimed
-        - No real-robot state of the art.
-        - No proof that the branch atlas can always discover the true hidden mode.
-        - No claim that advisor-name matches imply relevance.
+        ## Honest Action
+        The paper is marked `KILL_ARCHIVE`. This avoids converting a generated workshop-style idea into an overstated main-conference claim.
 
-        ## Remaining Reviewer Risk
-        A main-conference reviewer can still reject the work for synthetic-only evidence. The correct venue state is `WORKSHOP_ONLY` until hardware or high-fidelity simulation validation is added.
+        ## What Would Be Needed To Revive
+        - Real robot or high-fidelity benchmark experiments.
+        - Implemented model and baselines, not synthetic probability tables.
+        - Manual full-paper related-work audit.
+        - Paper-specific writing and figures.
+        - Evidence that the core mechanism is learned and useful under deployment shift.

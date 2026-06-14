@@ -1,6 +1,8 @@
-ablation,combined_stress_mean_success,ci95_success,interpretation
-full_proposed_branch_mechanism,0.6645,0.0103,all components
-minus_branch_atlas,0.5586,0.0166,removes explicit unrealized futures
-minus_tail_risk_objective,0.5848,0.0131,uses mean predicted value only
-minus_diagnostic_probe,0.6021,0.0175,does not actively test ambiguous physical modes
-minus_failure_memory,0.6169,0.0108,does not reuse repaired beliefs
+ablation,mean_mean_success,ci95_mean_success,mean_mean_credit_f1,ci95_mean_credit_f1,mean_mean_delayed_blame_f1,ci95_mean_delayed_blame_f1,mean_mean_false_credit,ci95_mean_false_credit,mean_mean_irreversible_side_effect,ci95_mean_irreversible_side_effect,mean_mean_wasted_action_rate,ci95_mean_wasted_action_rate,mean_mean_early_correction,ci95_mean_early_correction,mean_mean_credit_latency,ci95_mean_credit_latency,mean_mean_intervention_cost,ci95_mean_intervention_cost,groups,interpretation
+attention_credit_only,0.4685,0.0034,0.3279,0.0028,0.2441,0.0018,0.342,0.001,0.0845,0.0039,0.1857,0.0057,0.2158,0.0067,0.8375,0.0017,0.177,0.0006,7,attention attribution baseline
+full_reward_free_temporal_credit_graph,0.6406,0.0084,0.5182,0.0021,0.4984,0.0021,0.1541,0.0006,0.0508,0.0042,0.1016,0.0023,0.3636,0.005,0.6204,0.0012,0.1936,0.0017,7,all components
+minus_compensatory_action_masking,0.5783,0.0054,0.442,0.0014,0.4105,0.0019,0.2795,0.0008,0.0634,0.0033,0.1354,0.0053,0.3233,0.0064,0.6788,0.0031,0.1835,0.0007,7,does not discount actions that hide earlier mistakes
+minus_confidence_gated_intervention,0.5661,0.0102,0.4947,0.0013,0.4754,0.0018,0.1485,0.0011,0.0805,0.0067,0.1362,0.0034,0.2636,0.0025,0.6377,0.0023,0.1773,0.0012,7,diagnoses credit but does not gate corrections
+minus_counterfactual_prefix_tests,0.5708,0.0051,0.3986,0.0009,0.4079,0.0025,0.2192,0.0007,0.0606,0.0027,0.1417,0.005,0.3207,0.0037,0.6946,0.0039,0.1806,0.0011,7,removes prefix-level counterfactual tests
+minus_delayed_eligibility_memory,0.5425,0.0062,0.4446,0.0017,0.3177,0.0021,0.1908,0.0012,0.0653,0.0038,0.1324,0.005,0.2962,0.003,0.761,0.0016,0.1804,0.0012,7,forgets long-delayed action eligibility
+minus_physical_precondition_graph,0.5707,0.0054,0.4153,0.0007,0.3941,0.0014,0.2125,0.001,0.0615,0.0027,0.1406,0.0046,0.316,0.0065,0.72,0.0019,0.1815,0.0006,7,removes latent physical precondition graph

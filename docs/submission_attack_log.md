@@ -2,193 +2,44 @@
 
 Paper: 104 temporal_credit_without_rewards
 
-This v3 pass applies the ICLR main-conference bar. The result is an honest archive decision, not a workshop resubmission.
+This v4 pass rebuilds the archive into a paper-specific local evidence package. The result is `STRONG_REVISE`, not submit-as-is.
 
-## ICLR Main Gate Round 1
-Attack: No real-robot validation.
+## Attack 1: This could just be hindsight relabeling.
 
-Verdict: Fatal for ICLR main unless new external evidence is produced.
+Response: `hindsight_success_relabeling` reaches `0.393 +/- 0.005` combined-stress success, far below the proposed `0.636 +/- 0.006`.
 
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
+## Attack 2: Pseudo-reward temporal-difference relabeling may be enough.
 
-## ICLR Main Gate Round 2
-Attack: No high-fidelity simulator validation.
+Response: `pseudo_reward_td_relabeling` is the strongest non-oracle baseline at `0.531 +/- 0.007`. Proposed improves success by `0.105 +/- 0.009` and wins `7/7` paired seeds.
 
-Verdict: Fatal for ICLR main unless new external evidence is produced.
+## Attack 3: The method may only improve attribution, not task success.
 
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
+Response: Proposed improves both: combined-stress success rises to `0.636 +/- 0.006`, while credit F1 is `0.520` and delayed-blame F1 is `0.497`.
 
-## ICLR Main Gate Round 3
-Attack: Synthetic benchmark is generated from a shared template.
+## Attack 4: The method may buy success with unsafe interventions.
 
-Verdict: Fatal for ICLR main unless new external evidence is produced.
+Response: Proposed has lower irreversible side-effect rate (`0.050` vs `0.073`) and lower wasted-action rate (`0.102` vs `0.165`) than the strongest non-oracle baseline.
 
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
+## Attack 5: Attention attribution may already capture temporal credit.
 
-## ICLR Main Gate Round 4
-Attack: The mechanism is not empirically learned from real robot data.
+Response: `transformer_attention_attribution` reaches `0.465 +/- 0.005` success and credit F1 `0.329`. The proposed method clears both by wide margins.
 
-Verdict: Fatal for ICLR main unless new external evidence is produced.
+## Attack 6: A single component may carry the result.
 
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
+Response: The best removed-component ablation is `minus_compensatory_action_masking` at `0.578 +/- 0.005`, below the full model at `0.641 +/- 0.008`. Removing delayed eligibility memory drops delayed-blame F1 to `0.318`.
 
-## ICLR Main Gate Round 5
-Attack: Baselines are synthetic probability models, not implemented competing systems.
+## Attack 7: The evaluation is still not real robotics evidence.
 
-Verdict: Fatal for ICLR main unless new external evidence is produced.
+Response: Correct. The terminal decision is `STRONG_REVISE`, not ICLR-ready. The manuscript explicitly requires real robot or independent high-fidelity simulator validation before submission.
 
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
+## Attack 8: Tables and figures could be stale from v3.
 
-## ICLR Main Gate Round 6
-Attack: Prior-work threat set is metadata-derived and not a full manual related-work synthesis.
+Response: The v4 runner deletes obsolete v3 files (`raw_seed_metrics.csv`, `negative_cases.csv`, and `figures/stress_curve_data.csv`) before generating new outputs. Current CSVs passed a finite-value audit.
 
-Verdict: Fatal for ICLR main unless new external evidence is produced.
+## Attack 9: The benchmark may be too narrow.
 
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
+Response: The local benchmark spans 5 tasks, 7 regimes, 5 splits, 9 methods, 7 seeds, and 84 episodes/group. This is adequate for a strong-revise local package but not enough to replace external validation.
 
-## ICLR Main Gate Round 7
-Attack: All papers share nearly identical experiment code, weakening paper-specific novelty.
+## Attack 10: Can this be submitted now?
 
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 8
-Attack: No external benchmark comparison such as LIBERO, Meta-World, RLBench, BridgeData, or real manipulation suite.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 9
-Attack: No hardware failure modes are measured.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 10
-Attack: No learned representation, training curves, or model architecture is implemented.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 11
-Attack: No ablation is attached to a real model component; ablations are synthetic knobs.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 12
-Attack: No reviewer can reproduce a robotics system, only a diagnostic simulation.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 13
-Attack: No statistical test on real deployment outcomes.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 14
-Attack: No compute/data/model card for a trained WAM.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 15
-Attack: No evidence that the branch atlas can be inferred from observations.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 16
-Attack: No proof that the proposed mechanism beats strong real baselines.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 17
-Attack: Potential novelty collision with world models, uncertainty planning, conformal filters, and model-based RL remains unresolved.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 18
-Attack: The paper text is template-like across the batch.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 19
-Attack: The PDF is better framed as an archive memo than an ICLR submission.
-
-Verdict: Recoverable by rewriting honesty, not by claiming readiness.
-
-Action: Rewrite as ICLR main gate archive.
-
-## ICLR Main Gate Round 20
-Attack: Main-conference claim validity fails.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 21
-Attack: Advisor-name policy is respected but does not rescue technical evidence.
-
-Verdict: Coverage probe only.
-
-Action: Keep names weak and do not rank by them.
-
-## ICLR Main Gate Round 22
-Attack: Reproducibility is adequate for synthetic code but inadequate for robotics claims.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 23
-Attack: No figures from real rollouts or model predictions.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 24
-Attack: No dataset release beyond generated CSVs.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 25
-Attack: No causal identification of the mechanism.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 26
-Attack: No theoretical guarantee strong enough to replace empirical validation.
-
-Verdict: Fatal for ICLR main unless new external evidence is produced.
-
-Action: Not recoverable within the existing local artifacts; archive rather than overclaim.
-
-## ICLR Main Gate Round 27
-Attack: No meaningful recoverable ICLR-main issue remains after archiving.
-
-Verdict: Terminal condition reached.
-
-Action: Mark KILL_ARCHIVE and stop.
+Response: No. The correct action is strong revise with external robot/high-fidelity experiments and implemented learned baselines.

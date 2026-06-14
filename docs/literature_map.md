@@ -1,32 +1,28 @@
-        # Literature Map
+# Literature Map
 
-        Paper: 104 temporal_credit_without_rewards
+Paper: 104 temporal_credit_without_rewards
 
-        Field box: robot skill learning
+Field box: long-horizon robot learning, temporal credit assignment, reward-free imitation/control diagnostics.
 
-        Thesis: Temporal Credit Without Rewards turns the seed bet into a mechanism: Assign physical credit across long horizons without reward labels or RL framing.
+Thesis: assign delayed physical credit from observation/action event structure without scalar reward labels.
 
-        ## Landscape Sweep Summary
-        The selector ranked records from the shared 500,000-record pool. The closest visible clusters are:
-        - Forecasting Long-term Spatial-temporal Dynamics with Generative Transformer Networks ()
-- Multi-Stage Learning for Grasp-Constrained Object Manipulation with a Simulated Panda Robot (2020)
-- Fractional–Temporal Lorentz Graph Networks: Integrating Physical Memory into Dynamic Knowledge Reasoning (2026)
-- ST-HADP: Spatio-Temporal hierarchical attention diffusion policy for long-horizon generalizable bimanual visuomotor imitation (2026)
-- Skills transfer across dissimilar robots by learning context-dependent rewards (2013)
-- LS-VIT: Vision Transformer for action recognition based on long and short-term temporal difference (2024)
-- Compliant Motion Planning Integrating Human Skill for Robotic Arm Collecting Tomato Bunch Based on Improved DDPG (2025)
-- Learning of Long-Horizon Sparse-Reward Robotic Manipulator Tasks With Base Controllers (2022)
-- Counterfactual rewards promote collective transport using individually controlled swarm microrobots (2024)
-- Language to Rewards for Robotic Skill Synthesis (2023)
-- ASTEROIDS: Exploring Swarms of Mini-Telepresence Robots for Physical Skill Demonstration (2022)
-- CLIP-ReID: Exploiting Vision-Language Model for Image Re-identification without Concrete Text Labels (2023)
+## Crowded Clusters
 
-        ## Hidden Assumptions
-        - The executed trajectory is a sufficient training target.
-- Unobserved physical alternatives can be averaged into uncertainty.
-- Task labels capture the mechanism that caused failure.
-- A planner only needs nominal feasibility.
-- Embodiment-specific contact effects are nuisance variation.
+- Delayed-reward credit assignment in reinforcement learning.
+- Hindsight relabeling and sparse reward methods.
+- Return-conditioned sequence modeling and offline RL.
+- Imitation learning under causal confusion.
+- Attention attribution and saliency for sequence models.
+- Long-horizon robot task decomposition.
 
-        ## Boundary
-        The project avoids weak moves such as bigger models, generic uncertainty, or a benchmark-only contribution. It centers a mechanism-level change: Temporal credit without rewards keeps action-critical alternatives explicit until a physical observation collapses them.
+## Boundary
+
+The paper's boundary is reward-free physical credit. A pseudo-reward method can relabel final outcomes; an attention model can highlight salient timesteps; a contrastive method can align prefixes with outcomes. The proposed mechanism asks whether physical preconditions, delayed eligibility, and compensatory masking reveal which earlier actions caused later success or failure without scalar reward labels.
+
+## Local Evidence
+
+The v4 benchmark supports the boundary under combined stress: proposed success is `0.636 +/- 0.006` versus `0.531 +/- 0.007` for the strongest non-oracle baseline, credit F1 is `0.520`, and delayed-blame F1 is `0.497`.
+
+## Remaining Gap
+
+The literature boundary is credible enough for strong revise, but not for submission. The next version needs external robot/high-fidelity experiments and implemented learned baselines.

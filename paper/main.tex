@@ -4,42 +4,117 @@
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage{booktabs}
-\title{Temporal Credit Without Rewards: ICLR Main-Conference Gate Archive}
+\usepackage{graphicx}
+
+\title{Temporal Credit Without Rewards for Long-Horizon Robot Behavior}
 \author{Anonymous Authors}
+
 \begin{document}
 \maketitle
+
 \begin{abstract}
-This document is not an ICLR main-conference submission. It is the v3 main-conference gate for a generated robotics draft about robot skill learning. The original research bet was: Assign physical credit across long horizons without reward labels or RL framing. After a stricter hostile review, the honest terminal decision is \textbf{KILL/ARCHIVE}. Submission-hardening version: v3.
+Long-horizon robot failures often originate many actions before the visible failure: a missed precondition, a damaging contact, or a compensatory action that hides the true cause until later. Standard credit-assignment methods assume scalar rewards, hindsight labels, or sequence correlations. We rebuild Paper 104 around a narrower falsifiable claim: physical event structure in observation/action traces can assign temporal credit without scalar reward labels. The local benchmark covers 5 robot task families, 7 temporal-credit regimes, 5 stress splits, 9 methods, 7 seeds, and 84 episodes per group. On combined stress, the proposed reward-free temporal credit graph obtains $0.636 \pm 0.006$ success versus $0.531 \pm 0.007$ for the strongest non-oracle baseline, pseudo-reward temporal-difference relabeling. It also improves credit F1 to $0.520$, delayed-blame F1 to $0.497$, lowers irreversible side effects from $0.073$ to $0.050$, and lowers wasted actions from $0.165$ to $0.102$. Pairwise tests favor the proposed method over the strongest baseline in 7/7 seeds, and ablations show that counterfactual prefix tests, physical preconditions, delayed eligibility memory, compensatory masking, and confidence-gated intervention each matter. The terminal decision is \textbf{STRONG\_REVISE}: the local evidence supports the mechanism, but the paper is not ICLR-main-ready until validated on real robots or independent high-fidelity benchmarks.
 \end{abstract}
 
-\section{Gate Decision}
-The v2 paper was workshop-only. Under the active ICLR-main standard, that is insufficient. The local artifacts contain synthetic multi-seed diagnostics, but no real-robot validation, high-fidelity simulator benchmark, trained world-action model, implemented real baselines, or manual full-paper related-work synthesis. These missing items are not recoverable by editing text or rerunning the synthetic script.
+\section{Motivation}
+Credit assignment is a classic reinforcement-learning problem, but robot learning often lacks the clean scalar reward that makes the textbook framing possible. Demonstrations, teleoperation logs, and corrective interventions may show what happened without saying which earlier action caused the outcome. Delayed-reward methods such as RUDDER \citep{arjona2019rudder}, sparse-reward relabeling such as Hindsight Experience Replay \citep{andrychowicz2017her}, and return-conditioned sequence models such as Decision Transformer \citep{chen2021decision} all rely on reward or return information. Imitation learning also faces causal confusion when a policy attends to correlated but non-causal cues \citep{dehaan2019causal}. Attention weights alone are not reliable explanations \citep{jain2019attention}.
 
-\section{Fatal ICLR-Main Blockers}
+Paper 104 asks a different question: can a robot infer temporal credit from physical event structure without reward labels? A long-horizon trace contains prefixes that create latent preconditions, actions that repair or mask earlier mistakes, and delayed physical consequences. The proposed mechanism treats those as credit-bearing objects rather than as generic sequence correlations.
+
+\section{Method sketch}
+The proposed method is a reward-free temporal credit graph. Nodes represent action prefixes, physical preconditions, delayed outcomes, irreversible side effects, compensatory actions, and intervention points. Edges represent counterfactual dependencies: whether removing or perturbing an earlier prefix would change a later contact, clearance, stability, or success event. The monitor scores:
 \begin{itemize}
-\item Evidence is synthetic and generated from a shared batch template.
-\item Baselines are diagnostic probability models, not implemented competing robot systems.
-\item Ablations do not correspond to a trained model checkpoint.
-\item No hardware, high-fidelity benchmark, qualitative rollouts, or failure videos are available.
-\item Related work is based on pool slices and hostile metadata, not a manual full-paper synthesis.
-\item Claims would be misleading if framed as ICLR-main empirical robotics evidence.
+\item prefix-level counterfactual credit,
+\item delayed eligibility across long horizons,
+\item physical precondition creation and destruction,
+\item compensatory action masking,
+\item irreversible side-effect risk, and
+\item confidence-gated intervention utility.
 \end{itemize}
 
-\section{Hostile Prior-Work Pressure}
-The closest local hostile records include:
+The implementation is an executable diagnostic benchmark rather than a trained neural robot policy. This is sufficient for a local mechanism audit, but it is not sufficient for a main-conference empirical robotics claim.
+
+\section{Benchmark}
+The rebuilt benchmark is generated by \texttt{src/run\_experiment.py}. It writes aggregate CSVs and figures directly, keeping RAM usage low while retaining the full task/regime/method grid.
+
+\paragraph{Tasks.}
+The tasks are multi-step assembly, cluttered retrieval, drawer/door unlatching, peg-in-hole preparation, and tool-mediated manipulation.
+
+\paragraph{Temporal-credit regimes.}
+The regimes are immediate contact outcome, short delayed outcome, long delayed outcome, hidden precondition, irreversible side effect, compensatory action masking, and compositional delayed failure.
+
+\paragraph{Splits.}
+The stress splits are nominal, longer-horizon shift, sparse-observation shift, confounded-success shift, and combined stress.
+
+\paragraph{Methods.}
+The baselines are behavior cloning without credit, uniform credit assignment, hindsight success relabeling, inverse-dynamics saliency, transformer attention attribution, sequence-contrastive credit, and pseudo-reward temporal-difference relabeling. The benchmark also includes the proposed reward-free temporal credit graph and an oracle event-credit upper bound.
+
+\paragraph{Metrics.}
+The evidence reports task success, credit-localization F1, delayed-blame F1, false-credit rate, irreversible side-effect rate, wasted-action rate, early-correction rate, credit latency, intervention cost, regret to oracle, paired seed differences, ablations, stress sweeps, and failure cases.
+
+\section{Results}
+\input{../results/combined_stress_table.tex}
+
+The strongest non-oracle baseline is \texttt{pseudo\_reward\_td\_relabeling}. On combined stress, the proposed method improves success by $0.105 \pm 0.009$, wins 7/7 paired seeds, lowers irreversible side effects by $0.023$, and lowers wasted actions by $0.063$. The oracle remains substantially better at $0.783 \pm 0.007$, so the benchmark is not saturated.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{../figures/temporal_credit_combined_success.png}
+\caption{Combined-stress success with 95\% confidence intervals. The proposed graph clears the strongest non-oracle baseline but remains below the oracle.}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{../figures/temporal_credit_diagnostics.png}
+\caption{Credit-localization and delayed-blame diagnostics. The proposed method improves the metrics most directly tied to reward-free temporal credit.}
+\end{figure}
+
+\input{../results/pairwise_decision_table.tex}
+
+\section{Ablations and stress tests}
+\input{../results/ablation_table.tex}
+
+Removing compensatory-action masking is the strongest removed-component ablation at $0.578 \pm 0.005$ success, still below the full model at $0.641 \pm 0.008$. Removing delayed eligibility memory sharply reduces delayed-blame F1, while removing confidence-gated intervention keeps attribution strong but increases irreversible side effects. These results support the claim that attribution alone is insufficient; the credit estimate must change intervention behavior.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{../figures/temporal_credit_ablation.png}
+\caption{Ablation success under combined stress. The full graph remains above all removed-component variants.}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{../figures/temporal_credit_stress_sweep.png}
+\caption{Stress sweep over delay and confounding intensity. The proposed method remains above non-oracle baselines across the generated stress range, while the oracle remains the ceiling.}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{../figures/temporal_credit_safety_regret.png}
+\caption{Safety and regret trade-off on combined stress. The proposed method improves success without increasing irreversible side effects relative to the strongest non-oracle baseline.}
+\end{figure}
+
+\section{Where the method still fails}
+The failure-case CSV shows that reward-free temporal credit helps least when credit is almost immediate or when a pseudo-reward baseline can relabel the outcome without serious confounding. These are the correct boundaries. If a final outcome is directly tied to the immediately preceding action, a temporal credit graph is unnecessary overhead. Its value appears when hidden preconditions, compensatory masking, or delayed side effects separate the causal action from the visible outcome.
+
+\section{Hostile prior-work boundary}
+RUDDER already decomposes delayed rewards \citep{arjona2019rudder}. Hindsight relabeling already creates useful learning signals from sparse outcomes \citep{andrychowicz2017her}. Return-conditioned sequence modeling already uses long contexts and returns \citep{chen2021decision}. Causal-confusion work already warns that imitation can latch onto spurious temporal correlates \citep{dehaan2019causal}. Attention-explanation critiques already warn against treating attention weights as causal credit \citep{jain2019attention}. Long-horizon robot systems also use staged or relay structures to solve extended tasks \citep{gupta2020relay}.
+
+The present paper survives only under a narrower interpretation: it is about \emph{reward-free physical temporal credit}, not delayed-reward RL, hindsight labels, sequence attention, or task staging. If real robot experiments later show that pseudo-reward relabeling, hindsight relabeling, or attention/contrastive credit match the proposed method on confounded delayed physical failures, the claim should be killed.
+
+\section{Limitations and terminal decision}
+The evidence is strong enough to justify continued work but not submission. The limitations are material:
 \begin{itemize}
-\item ReCoVLA: VLM-Guided Reward Compilation for Failure Recovery in Vision-Language-Action Policies (2026)
-\item Compliant Motion Planning Integrating Human Skill for Robotic Arm Collecting Tomato Bunch Based on Improved DDPG (2025)
-\item CLIP-ReID: Exploiting Vision-Language Model for Image Re-identification without Concrete Text Labels (2023)
-\item PI-VLA: Adaptive Symmetry-Aware Decision-Making for Long-Horizon Vision-Language-Action Manipulation (2026)
-\item Forecasting Long-term Spatial-temporal Dynamics with Generative Transformer Networks (n.d.)
+\item the benchmark is local and synthetic;
+\item no real robot or independent high-fidelity simulator has been used;
+\item baselines are executable diagnostic models, not external trained robot systems;
+\item no learned policy checkpoint, training curve, or deployment video is provided;
+\item no external benchmark such as LIBERO, RLBench, Meta-World, BridgeData, or a hardware manipulation suite is reported.
 \end{itemize}
-These works make generic world models, uncertainty, model-based planning, and robot policy robustness crowded. Without real empirical evidence, the remaining novelty boundary is too weak for ICLR main.
 
-\section{What Remains Useful}
-The archive is still useful as an idea seed and reproducibility scaffold. The synthetic code, stress-test CSVs, reviewer attacks, and novelty-boundary docs can inform a future project. The correct next step is not more paper polishing; it is new evidence: implemented models, real baselines, manual related work, and robot or high-fidelity simulator validation.
+The terminal decision for this rebuild is therefore \textbf{STRONG\_REVISE}. The next honest version must add real robot or independent high-fidelity evidence, implemented learned baselines, and qualitative rollouts. Without that evidence, the paper should not be submitted to ICLR main.
 
-\section{Terminal Action}
-Decision: \textbf{KILL/ARCHIVE for ICLR main}. Do not submit this paper to ICLR main in the current form. Revival requires a substantially new empirical project.
+\bibliographystyle{iclr2026_conference}
+\bibliography{references}
 
 \end{document}

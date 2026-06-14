@@ -1,16 +1,50 @@
-Submission-hardening experiment for paper 104 temporal_credit_without_rewards
-Seven seeds, 600 episodes per seed, strong baselines, ablations, stress sweep, and negative cases.
-observed_only_behavior_clone hidden_mode_shift mean_success=0.4026 ci95=0.0177 tail=0.5974
-observed_only_behavior_clone combined_stress mean_success=0.3340 ci95=0.0195 tail=0.6660
-data_augmentation_wam hidden_mode_shift mean_success=0.4688 ci95=0.0222 tail=0.5312
-data_augmentation_wam combined_stress mean_success=0.4198 ci95=0.0127 tail=0.5802
-scalar_uncertainty_planner hidden_mode_shift mean_success=0.5462 ci95=0.0149 tail=0.4538
-scalar_uncertainty_planner combined_stress mean_success=0.5045 ci95=0.0180 tail=0.4955
-ensemble_disagreement_planner hidden_mode_shift mean_success=0.5840 ci95=0.0153 tail=0.4160
-ensemble_disagreement_planner combined_stress mean_success=0.5374 ci95=0.0144 tail=0.4626
-conformal_risk_filter hidden_mode_shift mean_success=0.6055 ci95=0.0176 tail=0.3945
-conformal_risk_filter combined_stress mean_success=0.5662 ci95=0.0111 tail=0.4338
-proposed_branch_mechanism hidden_mode_shift mean_success=0.6895 ci95=0.0167 tail=0.3105
-proposed_branch_mechanism combined_stress mean_success=0.6538 ci95=0.0163 tail=0.3462
-oracle_branch_upper_bound hidden_mode_shift mean_success=0.7624 ci95=0.0128 tail=0.2376
-oracle_branch_upper_bound combined_stress mean_success=0.7398 ci95=0.0172 tail=0.2602
+Paper 104 temporal_credit_without_rewards evidence rebuild
+Design: 5 tasks x 7 temporal-credit regimes x 5 splits x 9 methods, 7 seeds, 84 episodes/group.
+Terminal decision: STRONG_REVISE
+Rationale: local reward-free temporal-credit evidence supports the mechanism, but real robot/external validation is missing
+
+Combined-stress ranking:
+oracle_event_credit_labels: success=0.783 +/- 0.007, credit_f1=0.634, delayed_blame_f1=0.623, false_credit=0.016, irreversible=0.029, wasted=0.050, early_correction=0.448, latency=0.510, regret=0.000
+proposed_reward_free_temporal_credit_graph: success=0.636 +/- 0.006, credit_f1=0.520, delayed_blame_f1=0.497, false_credit=0.154, irreversible=0.050, wasted=0.102, early_correction=0.365, latency=0.622, regret=0.148
+pseudo_reward_td_relabeling: success=0.531 +/- 0.007, credit_f1=0.361, delayed_blame_f1=0.354, false_credit=0.269, irreversible=0.073, wasted=0.165, early_correction=0.277, latency=0.741, regret=0.252
+sequence_contrastive_credit: success=0.496 +/- 0.007, credit_f1=0.376, delayed_blame_f1=0.292, false_credit=0.301, irreversible=0.084, wasted=0.170, early_correction=0.248, latency=0.796, regret=0.287
+transformer_attention_attribution: success=0.465 +/- 0.005, credit_f1=0.329, delayed_blame_f1=0.244, false_credit=0.341, irreversible=0.090, wasted=0.192, early_correction=0.214, latency=0.838, regret=0.318
+inverse_dynamics_saliency: success=0.428 +/- 0.007, credit_f1=0.284, delayed_blame_f1=0.204, false_credit=0.310, irreversible=0.095, wasted=0.210, early_correction=0.181, latency=0.862, regret=0.355
+hindsight_success_relabeling: success=0.393 +/- 0.005, credit_f1=0.238, delayed_blame_f1=0.164, false_credit=0.283, irreversible=0.102, wasted=0.225, early_correction=0.153, latency=0.891, regret=0.389
+uniform_credit_assignment: success=0.343 +/- 0.005, credit_f1=0.172, delayed_blame_f1=0.116, false_credit=0.255, irreversible=0.104, wasted=0.241, early_correction=0.124, latency=0.924, regret=0.440
+behavior_clone_no_credit: success=0.308 +/- 0.005, credit_f1=0.123, delayed_blame_f1=0.084, false_credit=0.203, irreversible=0.101, wasted=0.254, early_correction=0.102, latency=0.942, regret=0.475
+
+Gate outcomes:
+success_gate: True
+diagnostic_gate: True
+safety_gate: True
+pairwise_gate: True
+ablation_gate: True
+success_margin_vs_strongest: 0.10471331389698757
+credit_f1_delta_vs_best_diagnostic_baseline: 0.14394754694621165
+delayed_blame_f1_delta_vs_best_diagnostic_baseline: 0.20439094424953275
+irreversible_side_effect_delta_vs_strongest: -0.023372206025267246
+wasted_action_delta_vs_strongest: -0.06282798833819243
+ablation_margin_vs_best_removed_component: 0.06224489795918364
+strongest_non_oracle_baseline: pseudo_reward_td_relabeling
+best_diagnostic_baseline: sequence_contrastive_credit
+best_removed_component: minus_compensatory_action_masking
+
+Pairwise proposed comparisons:
+behavior_clone_no_credit: diff=0.328 +/- 0.009, wins=7/7, decision=proposed_better
+hindsight_success_relabeling: diff=0.242 +/- 0.007, wins=7/7, decision=proposed_better
+inverse_dynamics_saliency: diff=0.208 +/- 0.005, wins=7/7, decision=proposed_better
+oracle_event_credit_labels: diff=-0.147 +/- 0.009, wins=0/7, decision=not_decisive
+pseudo_reward_td_relabeling: diff=0.105 +/- 0.009, wins=7/7, decision=proposed_better
+sequence_contrastive_credit: diff=0.140 +/- 0.009, wins=7/7, decision=proposed_better
+transformer_attention_attribution: diff=0.171 +/- 0.009, wins=7/7, decision=proposed_better
+uniform_credit_assignment: diff=0.293 +/- 0.005, wins=7/7, decision=proposed_better
+
+Ablations:
+full_reward_free_temporal_credit_graph: success=0.641 +/- 0.008, credit_f1=0.518, delayed_blame_f1=0.498, irreversible=0.051, note=all components
+minus_compensatory_action_masking: success=0.578 +/- 0.005, credit_f1=0.442, delayed_blame_f1=0.411, irreversible=0.063, note=does not discount actions that hide earlier mistakes
+minus_counterfactual_prefix_tests: success=0.571 +/- 0.005, credit_f1=0.399, delayed_blame_f1=0.408, irreversible=0.061, note=removes prefix-level counterfactual tests
+minus_physical_precondition_graph: success=0.571 +/- 0.005, credit_f1=0.415, delayed_blame_f1=0.394, irreversible=0.061, note=removes latent physical precondition graph
+minus_confidence_gated_intervention: success=0.566 +/- 0.010, credit_f1=0.495, delayed_blame_f1=0.475, irreversible=0.080, note=diagnoses credit but does not gate corrections
+minus_delayed_eligibility_memory: success=0.542 +/- 0.006, credit_f1=0.445, delayed_blame_f1=0.318, irreversible=0.065, note=forgets long-delayed action eligibility
+attention_credit_only: success=0.468 +/- 0.003, credit_f1=0.328, delayed_blame_f1=0.244, irreversible=0.084, note=attention attribution baseline

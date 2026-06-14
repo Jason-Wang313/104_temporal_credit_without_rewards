@@ -1,26 +1,23 @@
-        # Hostile Reviewer Response
+# Hostile Reviewer Response
 
-        Paper: 104 Temporal Credit Without Rewards
+Paper: 104 Temporal Credit Without Rewards
 
-        ## Strongest Technical Threats
-        - ReCoVLA: VLM-Guided Reward Compilation for Failure Recovery in Vision-Language-Action Policies (2026)
-- Compliant Motion Planning Integrating Human Skill for Robotic Arm Collecting Tomato Bunch Based on Improved DDPG (2025)
-- CLIP-ReID: Exploiting Vision-Language Model for Image Re-identification without Concrete Text Labels (2023)
-- PI-VLA: Adaptive Symmetry-Aware Decision-Making for Long-Horizon Vision-Language-Action Manipulation (2026)
-- Forecasting Long-term Spatial-temporal Dynamics with Generative Transformer Networks (n.d.)
-- Evaluating Long-Range Temporal Structure in Foundation Model-Based Forecasts of Heartbeat Dynamics (n.d.)
-- BOLT: Boost Large Vision-Language Model Without Training for Long-Form Video Understanding (2025)
-- Multi-Stage Learning for Grasp-Constrained Object Manipulation with a Simulated Panda Robot (2020)
+## Strongest Technical Threats
 
-        ## ICLR Main Response
-        A hostile ICLR reviewer would be correct to reject this as a main-conference submission. The v2 paper has reproducible synthetic evidence and careful limitations, but it does not contain the real robot, high-fidelity simulator, learned model, or manual related-work depth needed for the ICLR main track.
+- Delayed-reward credit assignment methods such as RUDDER already decompose return across time.
+- Hindsight relabeling already extracts training signal from sparse final outcomes.
+- Sequence models and offline RL methods already condition on returns and long contexts.
+- Imitation-learning work on causal confusion shows that policies can attend to spurious temporal correlates.
+- Attention-based attribution is known to be an unreliable causal explanation unless tested counterfactually.
 
-        ## Honest Action
-        The paper is marked `KILL_ARCHIVE`. This avoids converting a generated workshop-style idea into an overstated main-conference claim.
+## ICLR Main Response
 
-        ## What Would Be Needed To Revive
-        - Real robot or high-fidelity benchmark experiments.
-        - Implemented model and baselines, not synthetic probability tables.
-        - Manual full-paper related-work audit.
-        - Paper-specific writing and figures.
-        - Evidence that the core mechanism is learned and useful under deployment shift.
+The v4 rebuild narrows the novelty boundary to reward-free physical credit: assigning earlier action credit from observation/action event structure without scalar reward labels. The local benchmark supports that boundary: proposed combined-stress success is `0.636 +/- 0.006` versus `0.531 +/- 0.007` for the strongest non-oracle baseline, with lower irreversible side-effect and wasted-action rates.
+
+## Remaining Hostile Review
+
+A hostile reviewer would still be correct to reject a main-track submission today. The evidence is local and synthetic; the baselines are executable diagnostic models rather than external robot systems; and there is no real robot or independently validated high-fidelity simulator evidence.
+
+## Honest Action
+
+The paper is marked `STRONG_REVISE`. Continue only if the next version adds real robot or high-fidelity external validation and implemented learned baselines.

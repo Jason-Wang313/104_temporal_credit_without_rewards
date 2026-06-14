@@ -1,17 +1,14 @@
-        # Hostile Prior Work
+# Hostile Prior Work
 
-        The hostile set contains 100 papers. The strongest threats are:
-        - ReCoVLA: VLM-Guided Reward Compilation for Failure Recovery in Vision-Language-Action Policies (2026)
-- Compliant Motion Planning Integrating Human Skill for Robotic Arm Collecting Tomato Bunch Based on Improved DDPG (2025)
-- CLIP-ReID: Exploiting Vision-Language Model for Image Re-identification without Concrete Text Labels (2023)
-- PI-VLA: Adaptive Symmetry-Aware Decision-Making for Long-Horizon Vision–Language–Action Manipulation (2026)
-- Forecasting Long-term Spatial-temporal Dynamics with Generative Transformer Networks ()
-- Evaluating Long-Range Temporal Structure in Foundation Model-Based Forecasts of Heartbeat Dynamics ()
-- BOLT: Boost Large Vision-Language Model Without Training for Long-Form Video Understanding (2025)
-- Multi-Stage Learning for Grasp-Constrained Object Manipulation with a Simulated Panda Robot (2020)
-- From Captions to Rewards (CaReVL): Leveraging Large Language Model Experts for Enhanced Reward Modeling in Large Vision-Language Models (2025)
-- Motion planning under uncertainty for robotic tasks with long time horizons (2011)
-- Minimum-Violation Temporal Logic Planning for Heterogeneous Robots under Robot Skill Failures (2024)
-- Behavior Foundation Model for Humanoid Robots (2025)
+The closest threats are methods that already extract training signal across time, handle delayed or sparse feedback, or diagnose causal mistakes in imitation and sequence models.
 
-        The novelty boundary is not "robotics plus more data" or "add uncertainty." The contribution must show that the mechanism in `temporal_credit_without_rewards` changes what the model represents or what the planner can choose.
+- RUDDER assigns credit in reinforcement learning with delayed rewards.
+- Hindsight Experience Replay relabels sparse outcomes into useful training signal.
+- Decision Transformer and return-conditioned sequence models use long-horizon context and return information.
+- Causal confusion in imitation learning shows that policies can exploit spurious temporal correlates.
+- Attention-is-explanation critiques warn that attention weights alone are not causal credit.
+- Long-horizon robot learning methods already decompose tasks into stages or relays.
+
+The v4 novelty boundary is therefore narrow: Paper 104 is not "do credit assignment" and not "add a pseudo reward." It must show reward-free temporal credit from physical event structure when scalar rewards are absent and temporal confounding hides the action that caused success or failure.
+
+Current evidence supports this boundary locally, but real robot or independent high-fidelity validation remains required.

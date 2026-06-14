@@ -1,7 +1,9 @@
 # Novelty Decision
 
-Chosen thesis: Temporal Credit Without Rewards turns the seed bet into a mechanism: Assign physical credit across long horizons without reward labels or RL framing.
+Chosen thesis: robots can assign delayed physical credit without scalar reward labels by modeling how earlier action prefixes create, hide, or destroy later physical preconditions.
 
-New central mechanism: Temporal credit without rewards keeps action-critical alternatives explicit until a physical observation collapses them.
+New central mechanism: a reward-free temporal credit graph over prefixes, latent physical preconditions, delayed eligibility, irreversible side effects, and compensatory action masking.
 
-Decision: proceed as a revise/workshop-strength ICLR-style draft with synthetic but runnable evidence.
+Decision: STRONG_REVISE.
+
+Reason: the v4 local evidence passes success, diagnostic, safety, pairwise, and ablation gates, but real robot or independent high-fidelity validation is still missing.

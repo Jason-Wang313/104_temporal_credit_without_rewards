@@ -6,4 +6,4 @@ New central mechanism: a reward-free temporal credit graph over prefixes, latent
 
 Decision: STRONG_REVISE.
 
-Reason: the v4 local evidence passes success, diagnostic, safety, pairwise, and ablation gates, but real robot or independent high-fidelity validation is still missing.
+Reason: the v4.1 local evidence passes success, diagnostic, safety, pairwise, stress, and ablation gates, but real robot or independent high-fidelity validation is still missing.

@@ -67,3 +67,9 @@ Otherwise mark `KILL_ARCHIVE` with evidence.
 ## RAM Discipline
 
 Use vectorized or aggregate group simulation and write summary tables directly. Keep all seeds, tasks, regimes, methods, stress levels, ablations, and failure cases; do not reduce experimental coverage to save memory.
+
+## Continuation Result
+
+Re-audited: 2026-06-15 16:25:50 +0100
+
+The v4.1 continuation rerun recompiled and regenerated the benchmark from source. Terminal gate result remains STRONG_REVISE: proposed combined-stress success is `0.6356 +/- 0.0055` vs `0.5309 +/- 0.0075` for `pseudo_reward_td_relabeling`, paired gain is `0.1047 +/- 0.0088` with `7/7` seed wins, diagnostics and safety improve, and all removed-component ablations remain below full. The paper is still not ICLR-main-ready without real robot or external high-fidelity validation.

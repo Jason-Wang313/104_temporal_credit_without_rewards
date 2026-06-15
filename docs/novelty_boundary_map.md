@@ -18,4 +18,4 @@ If pseudo-reward temporal-difference relabeling, hindsight relabeling, attention
 
 ## Current Decision
 
-The v4 local benchmark clears the predeclared gates, so the paper is `STRONG_REVISE`. It remains not submission-ready without external validation.
+The v4.1 local benchmark clears the predeclared gates, so the paper is `STRONG_REVISE`. It remains not submission-ready without external validation.

@@ -5,15 +5,17 @@
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{microtype}
 
 \title{Temporal Credit Without Rewards for Long-Horizon Robot Behavior}
 \author{Anonymous Authors}
 
 \begin{document}
+\raggedbottom
 \maketitle
 
 \begin{abstract}
-Long-horizon robot failures often originate many actions before the visible failure: a missed precondition, a damaging contact, or a compensatory action that hides the true cause until later. Standard credit-assignment methods assume scalar rewards, hindsight labels, or sequence correlations. We rebuild Paper 104 around a narrower falsifiable claim: physical event structure in observation/action traces can assign temporal credit without scalar reward labels. The local benchmark covers 5 robot task families, 7 temporal-credit regimes, 5 stress splits, 9 methods, 7 seeds, and 84 episodes per group. On combined stress, the proposed reward-free temporal credit graph obtains $0.636 \pm 0.006$ success versus $0.531 \pm 0.007$ for the strongest non-oracle baseline, pseudo-reward temporal-difference relabeling. It also improves credit F1 to $0.520$, delayed-blame F1 to $0.497$, lowers irreversible side effects from $0.073$ to $0.050$, and lowers wasted actions from $0.165$ to $0.102$. Pairwise tests favor the proposed method over the strongest baseline in 7/7 seeds, and ablations show that counterfactual prefix tests, physical preconditions, delayed eligibility memory, compensatory masking, and confidence-gated intervention each matter. The terminal decision is \textbf{STRONG\_REVISE}: the local evidence supports the mechanism, but the paper is not ICLR-main-ready until validated on real robots or independent high-fidelity benchmarks.
+Long-horizon robot failures often originate many actions before the visible failure: a missed precondition, a damaging contact, or a compensatory action that hides the true cause until later. Standard credit-assignment methods assume scalar rewards, hindsight labels, or sequence correlations. We rebuild and re-audit Paper 104 around a narrower falsifiable claim: physical event structure in observation/action traces can assign temporal credit without scalar reward labels. The local benchmark covers 5 robot task families, 7 temporal-credit regimes, 5 stress splits, 9 methods, 7 seeds, and 84 episodes per group. On the 2026-06-15 continuation rerun, the proposed reward-free temporal credit graph obtains $0.6356 \pm 0.0055$ success versus $0.5309 \pm 0.0075$ for the strongest non-oracle baseline, pseudo-reward temporal-difference relabeling. It also improves credit F1 to $0.5196$, delayed-blame F1 to $0.4965$, lowers irreversible side effects from $0.0734$ to $0.0500$, and lowers wasted actions from $0.1650$ to $0.1022$. Pairwise tests favor the proposed method over the strongest baseline in 7/7 seeds, and ablations show that counterfactual prefix tests, physical preconditions, delayed eligibility memory, compensatory masking, and confidence-gated intervention each matter. The terminal decision is \textbf{STRONG\_REVISE}: the local evidence supports the mechanism, but the paper is not ICLR-main-ready until validated on real robots or independent high-fidelity benchmarks.
 \end{abstract}
 
 \section{Motivation}
@@ -55,7 +57,7 @@ The evidence reports task success, credit-localization F1, delayed-blame F1, fal
 \section{Results}
 \input{../results/combined_stress_table.tex}
 
-The strongest non-oracle baseline is \texttt{pseudo\_reward\_td\_relabeling}. On combined stress, the proposed method improves success by $0.105 \pm 0.009$, wins 7/7 paired seeds, lowers irreversible side effects by $0.023$, and lowers wasted actions by $0.063$. The oracle remains substantially better at $0.783 \pm 0.007$, so the benchmark is not saturated.
+The strongest non-oracle baseline is \texttt{pseudo\_reward\_td\_relabeling}. On combined stress, the proposed method improves success by $0.1047 \pm 0.0088$, wins 7/7 paired seeds, lowers irreversible side effects by $0.0234$, and lowers wasted actions by $0.0628$. The oracle remains substantially better at $0.7827 \pm 0.0066$, so the benchmark is not saturated.
 
 \begin{figure}[t]
 \centering
@@ -74,7 +76,7 @@ The strongest non-oracle baseline is \texttt{pseudo\_reward\_td\_relabeling}. On
 \section{Ablations and stress tests}
 \input{../results/ablation_table.tex}
 
-Removing compensatory-action masking is the strongest removed-component ablation at $0.578 \pm 0.005$ success, still below the full model at $0.641 \pm 0.008$. Removing delayed eligibility memory sharply reduces delayed-blame F1, while removing confidence-gated intervention keeps attribution strong but increases irreversible side effects. These results support the claim that attribution alone is insufficient; the credit estimate must change intervention behavior.
+Removing compensatory-action masking is the strongest removed-component ablation at $0.5783 \pm 0.0054$ success, still below the full model at $0.6406 \pm 0.0084$. Removing delayed eligibility memory sharply reduces delayed-blame F1, while removing confidence-gated intervention keeps attribution strong but increases irreversible side effects. These results support the claim that attribution alone is insufficient; the credit estimate must change intervention behavior.
 
 \begin{figure}[t]
 \centering
@@ -103,7 +105,7 @@ RUDDER already decomposes delayed rewards \citep{arjona2019rudder}. Hindsight re
 The present paper survives only under a narrower interpretation: it is about \emph{reward-free physical temporal credit}, not delayed-reward RL, hindsight labels, sequence attention, or task staging. If real robot experiments later show that pseudo-reward relabeling, hindsight relabeling, or attention/contrastive credit match the proposed method on confounded delayed physical failures, the claim should be killed.
 
 \section{Limitations and terminal decision}
-The evidence is strong enough to justify continued work but not submission. The limitations are material:
+The v4.1 evidence is strong enough to justify continued work but not submission. The limitations are material:
 \begin{itemize}
 \item the benchmark is local and synthetic;
 \item no real robot or independent high-fidelity simulator has been used;
@@ -114,7 +116,10 @@ The evidence is strong enough to justify continued work but not submission. The 
 
 The terminal decision for this rebuild is therefore \textbf{STRONG\_REVISE}. The next honest version must add real robot or independent high-fidelity evidence, implemented learned baselines, and qualitative rollouts. Without that evidence, the paper should not be submitted to ICLR main.
 
+\begingroup
+\raggedright
 \bibliographystyle{iclr2026_conference}
 \bibliography{references}
+\endgroup
 
 \end{document}

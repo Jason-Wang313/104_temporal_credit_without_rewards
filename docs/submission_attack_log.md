@@ -2,31 +2,31 @@
 
 Paper: 104 temporal_credit_without_rewards
 
-This v4 pass rebuilds the archive into a paper-specific local evidence package. The result is `STRONG_REVISE`, not submit-as-is.
+This v4.1 pass re-audits the paper-specific local evidence package. The result is `STRONG_REVISE`, not submit-as-is.
 
 ## Attack 1: This could just be hindsight relabeling.
 
-Response: `hindsight_success_relabeling` reaches `0.393 +/- 0.005` combined-stress success, far below the proposed `0.636 +/- 0.006`.
+Response: `hindsight_success_relabeling` reaches `0.3935 +/- 0.0048` combined-stress success, far below the proposed `0.6356 +/- 0.0055`.
 
 ## Attack 2: Pseudo-reward temporal-difference relabeling may be enough.
 
-Response: `pseudo_reward_td_relabeling` is the strongest non-oracle baseline at `0.531 +/- 0.007`. Proposed improves success by `0.105 +/- 0.009` and wins `7/7` paired seeds.
+Response: `pseudo_reward_td_relabeling` is the strongest non-oracle baseline at `0.5309 +/- 0.0075`. Proposed improves success by `0.1047 +/- 0.0088` and wins `7/7` paired seeds.
 
 ## Attack 3: The method may only improve attribution, not task success.
 
-Response: Proposed improves both: combined-stress success rises to `0.636 +/- 0.006`, while credit F1 is `0.520` and delayed-blame F1 is `0.497`.
+Response: Proposed improves both: combined-stress success rises to `0.6356 +/- 0.0055`, while credit F1 is `0.5196` and delayed-blame F1 is `0.4965`.
 
 ## Attack 4: The method may buy success with unsafe interventions.
 
-Response: Proposed has lower irreversible side-effect rate (`0.050` vs `0.073`) and lower wasted-action rate (`0.102` vs `0.165`) than the strongest non-oracle baseline.
+Response: Proposed has lower irreversible side-effect rate (`0.0500` vs `0.0734`) and lower wasted-action rate (`0.1022` vs `0.1650`) than the strongest non-oracle baseline.
 
 ## Attack 5: Attention attribution may already capture temporal credit.
 
-Response: `transformer_attention_attribution` reaches `0.465 +/- 0.005` success and credit F1 `0.329`. The proposed method clears both by wide margins.
+Response: `transformer_attention_attribution` reaches `0.4646 +/- 0.0048` success and credit F1 `0.3293`. The proposed method clears both by wide margins.
 
 ## Attack 6: A single component may carry the result.
 
-Response: The best removed-component ablation is `minus_compensatory_action_masking` at `0.578 +/- 0.005`, below the full model at `0.641 +/- 0.008`. Removing delayed eligibility memory drops delayed-blame F1 to `0.318`.
+Response: The best removed-component ablation is `minus_compensatory_action_masking` at `0.5783 +/- 0.0054`, below the full model at `0.6406 +/- 0.0084`. Removing delayed eligibility memory drops delayed-blame F1 to `0.3177`.
 
 ## Attack 7: The evaluation is still not real robotics evidence.
 

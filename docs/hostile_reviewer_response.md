@@ -12,7 +12,7 @@ Paper: 104 Temporal Credit Without Rewards
 
 ## ICLR Main Response
 
-The v4 rebuild narrows the novelty boundary to reward-free physical credit: assigning earlier action credit from observation/action event structure without scalar reward labels. The local benchmark supports that boundary: proposed combined-stress success is `0.636 +/- 0.006` versus `0.531 +/- 0.007` for the strongest non-oracle baseline, with lower irreversible side-effect and wasted-action rates.
+The v4.1 rebuild narrows the novelty boundary to reward-free physical credit: assigning earlier action credit from observation/action event structure without scalar reward labels. The local benchmark supports that boundary: proposed combined-stress success is `0.6356 +/- 0.0055` versus `0.5309 +/- 0.0075` for the strongest non-oracle baseline, with lower irreversible side-effect and wasted-action rates.
 
 ## Remaining Hostile Review
 

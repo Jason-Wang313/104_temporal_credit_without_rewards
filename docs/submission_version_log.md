@@ -30,3 +30,14 @@
 - Recompiled `src/run_experiment.py` and regenerated the benchmark from source.
 - Verified CSV coverage, strongest-baseline gate, credit/delayed-blame diagnostics, safety gates, pairwise seed statistics, stress sweep, ablations, failure cases, PDF rebuild path, and no-Desktop artifact rule.
 - Terminal decision remains STRONG_REVISE because local evidence passes all gates, but ICLR-main readiness remains `no` without real robot or external high-fidelity validation.
+
+## v5 - Expanded Hostile-Review Rebuild
+
+- Added `docs/paper104_expanded_submission_plan_20260622.md`.
+- Replaced the aggregate-only runner with a RAM-light streaming v5 runner over 6 tasks, 8 regimes, 8 splits, 15 methods, 10 seeds, and raw rollout persistence.
+- Added raw main, ablation, stress-sweep, and fixed-risk CSVs; machine-readable `summary.json`; and `row_counts.csv`.
+- Added strict fixed-risk correction budgets and a scope gate that remains false without external validation.
+- Added `scripts/generate_manuscript.py` and `scripts/validate_submission_artifacts.py`.
+- Generated a 26-page PDF with bright boxed clickable citations and copied it only to `C:/Users/wangz/Downloads/104.pdf`.
+- Final PDF SHA256: `8ED1042D54E0B6E1570929F513B5376AEA4ACA2F6B239418686E2D7CCE988A3A`.
+- Terminal decision remains STRONG_REVISE: all frozen local empirical gates pass, but ICLR-main readiness remains `no`.

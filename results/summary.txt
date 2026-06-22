@@ -1,50 +1,101 @@
-Paper 104 temporal_credit_without_rewards evidence rebuild
-Design: 5 tasks x 7 temporal-credit regimes x 5 splits x 9 methods, 7 seeds, 84 episodes/group.
+Paper 104: temporal_credit_without_rewards expanded v5 evidence audit
 Terminal decision: STRONG_REVISE
-Rationale: local reward-free temporal-credit evidence supports the mechanism, but real robot/external validation is missing
+ICLR main ready: no
+Design: 6 tasks x 8 temporal-credit regimes x 8 splits x 15 methods, 10 seeds, 6 episodes per seed/task/regime/split/method cell.
+Claim under test: risk-calibrated reward-free temporal credit should improve delayed physical credit beyond pseudo-reward TD, contrastive credit, attention attribution, world-model probes, causal event graphs, and v4 rules.
 
-Combined-stress ranking:
-oracle_event_credit_labels: success=0.783 +/- 0.007, credit_f1=0.634, delayed_blame_f1=0.623, false_credit=0.016, irreversible=0.029, wasted=0.050, early_correction=0.448, latency=0.510, regret=0.000
-proposed_reward_free_temporal_credit_graph: success=0.636 +/- 0.006, credit_f1=0.520, delayed_blame_f1=0.497, false_credit=0.154, irreversible=0.050, wasted=0.102, early_correction=0.365, latency=0.622, regret=0.148
-pseudo_reward_td_relabeling: success=0.531 +/- 0.007, credit_f1=0.361, delayed_blame_f1=0.354, false_credit=0.269, irreversible=0.073, wasted=0.165, early_correction=0.277, latency=0.741, regret=0.252
-sequence_contrastive_credit: success=0.496 +/- 0.007, credit_f1=0.376, delayed_blame_f1=0.292, false_credit=0.301, irreversible=0.084, wasted=0.170, early_correction=0.248, latency=0.796, regret=0.287
-transformer_attention_attribution: success=0.465 +/- 0.005, credit_f1=0.329, delayed_blame_f1=0.244, false_credit=0.341, irreversible=0.090, wasted=0.192, early_correction=0.214, latency=0.838, regret=0.318
-inverse_dynamics_saliency: success=0.428 +/- 0.007, credit_f1=0.284, delayed_blame_f1=0.204, false_credit=0.310, irreversible=0.095, wasted=0.210, early_correction=0.181, latency=0.862, regret=0.355
-hindsight_success_relabeling: success=0.393 +/- 0.005, credit_f1=0.238, delayed_blame_f1=0.164, false_credit=0.283, irreversible=0.102, wasted=0.225, early_correction=0.153, latency=0.891, regret=0.389
-uniform_credit_assignment: success=0.343 +/- 0.005, credit_f1=0.172, delayed_blame_f1=0.116, false_credit=0.255, irreversible=0.104, wasted=0.241, early_correction=0.124, latency=0.924, regret=0.440
-behavior_clone_no_credit: success=0.308 +/- 0.005, credit_f1=0.123, delayed_blame_f1=0.084, false_credit=0.203, irreversible=0.101, wasted=0.254, early_correction=0.102, latency=0.942, regret=0.475
+Row counts:
+- ablation_metric_rows: 10
+- ablation_rollout_rows: 115200
+- ablation_seed_rows: 100
+- dataset_summary_rows: 3840
+- failure_case_rows: 24
+- fixed_risk_metric_rows: 48
+- fixed_risk_pairwise_rows: 44
+- fixed_risk_rows: 276480
+- fixed_risk_seed_rows: 480
+- hard_metric_rows: 15
+- hard_pairwise_rows: 14
+- hard_seed_rows: 150
+- main_group_rows: 57600
+- main_metric_rows: 120
+- main_rollout_rows: 345600
+- main_seed_metric_rows: 150
+- stress_metric_rows: 100
+- stress_rollout_rows: 288000
+- stress_seed_rows: 1000
+
+Hard-aggregate evidence:
+- oracle_event_credit_labels: success=0.93255 +/- 0.00515, credit_f1=0.65668, delayed_blame_f1=0.68481, false_credit=0.00252, missed_credit=0.09748, irreversible=0.00234, wasted=0.00321, early=0.56484, latency=0.45734, ece=0.00200, regret=0.00000, utility=0.80350
+- risk_calibrated_temporal_credit_v5: success=0.85078 +/- 0.00548, credit_f1=0.59262, delayed_blame_f1=0.62083, false_credit=0.00234, missed_credit=0.13906, irreversible=0.00217, wasted=0.02708, early=0.52717, latency=0.50794, ece=0.00257, regret=0.07714, utility=0.67809
+- proposed_reward_free_temporal_credit_v4: success=0.75408 +/- 0.01010, credit_f1=0.51727, delayed_blame_f1=0.52760, false_credit=0.03620, missed_credit=0.20616, irreversible=0.01745, wasted=0.08220, early=0.44983, latency=0.59373, ece=0.03776, regret=0.18209, utility=0.46994
+- temporal_difference_world_model: success=0.68932 +/- 0.00608, credit_f1=0.42135, delayed_blame_f1=0.45859, false_credit=0.08976, missed_credit=0.25625, irreversible=0.04757, wasted=0.12535, early=0.39045, latency=0.65779, ece=0.05733, regret=0.24660, utility=0.28174
+- counterfactual_prefix_search: success=0.68229 +/- 0.00525, credit_f1=0.46510, delayed_blame_f1=0.42708, false_credit=0.06910, missed_credit=0.25043, irreversible=0.04410, wasted=0.11319, early=0.37483, latency=0.67657, ece=0.05025, regret=0.24436, utility=0.29598
+- causal_event_graph_credit: success=0.66398 +/- 0.01118, credit_f1=0.44080, delayed_blame_f1=0.40755, false_credit=0.08099, missed_credit=0.26172, irreversible=0.04601, wasted=0.12604, early=0.36554, latency=0.68696, ece=0.05605, regret=0.26037, utility=0.25803
+- diffusion_policy_credit_probe: success=0.64227 +/- 0.00575, credit_f1=0.41510, delayed_blame_f1=0.37153, false_credit=0.10260, missed_credit=0.28220, irreversible=0.05599, wasted=0.14800, early=0.33759, latency=0.72401, ece=0.07846, regret=0.28779, utility=0.18303
+- object_state_change_attribution: success=0.63359 +/- 0.01159, credit_f1=0.40964, delayed_blame_f1=0.35981, false_credit=0.10226, missed_credit=0.29132, irreversible=0.05061, wasted=0.15347, early=0.32283, latency=0.72770, ece=0.07143, regret=0.29622, utility=0.17719
+- pseudo_reward_td_relabeling: success=0.63255 +/- 0.01066, credit_f1=0.35972, delayed_blame_f1=0.39575, false_credit=0.13325, missed_credit=0.29922, irreversible=0.06085, wasted=0.16476, early=0.33377, latency=0.71236, ece=0.08335, regret=0.29794, utility=0.13819
+- sequence_contrastive_credit: success=0.60712 +/- 0.00428, credit_f1=0.38785, delayed_blame_f1=0.31580, false_credit=0.12179, missed_credit=0.31510, irreversible=0.06892, wasted=0.16606, early=0.30278, latency=0.76774, ece=0.07801, regret=0.32133, utility=0.09546
+- transformer_attention_attribution: success=0.55061 +/- 0.00752, credit_f1=0.32014, delayed_blame_f1=0.24609, false_credit=0.15686, missed_credit=0.35399, irreversible=0.09193, wasted=0.20373, early=0.25460, latency=0.83026, ece=0.09985, regret=0.37601, utility=-0.05312
+- inverse_dynamics_saliency: success=0.50807 +/- 0.00752, credit_f1=0.25964, delayed_blame_f1=0.20069, false_credit=0.18142, missed_credit=0.39514, irreversible=0.10295, wasted=0.22865, early=0.20660, latency=0.87593, ece=0.11719, regret=0.42446, utility=-0.15850
+- hindsight_success_relabeling: success=0.45443 +/- 0.00670, credit_f1=0.20130, delayed_blame_f1=0.14792, false_credit=0.20382, missed_credit=0.43186, irreversible=0.11519, wasted=0.25972, early=0.17144, latency=0.91846, ece=0.13033, regret=0.46989, utility=-0.27591
+- uniform_credit_assignment: success=0.39748 +/- 0.00625, credit_f1=0.13490, delayed_blame_f1=0.08750, false_credit=0.23663, missed_credit=0.48429, irreversible=0.13464, wasted=0.29219, early=0.12613, latency=0.97596, ece=0.15248, regret=0.53585, utility=-0.42111
+- behavior_clone_no_credit: success=0.35252 +/- 0.00558, credit_f1=0.08533, delayed_blame_f1=0.05339, false_credit=0.25312, missed_credit=0.51936, irreversible=0.15078, wasted=0.31866, early=0.10009, latency=1.01078, ece=0.16288, regret=0.58307, utility=-0.52730
+
+Reference winners:
+- best_success_reference=proposed_reward_free_temporal_credit_v4
+- best_utility_reference=proposed_reward_free_temporal_credit_v4
+- best_credit_reference=proposed_reward_free_temporal_credit_v4
+- best_delay_reference=proposed_reward_free_temporal_credit_v4
+- best_removed_success_ablation=no_false_credit_suppression
+- best_removed_utility_ablation=no_risk_calibration
+- max_stress_reference=proposed_reward_free_temporal_credit_v4
+- fixed_risk_reference=proposed_reward_free_temporal_credit_v4
+- v5_success=0.85078
+- v5_credit_f1=0.59262
+- v5_delayed_blame_f1=0.62083
+- v5_false_credit=0.00234
+- v5_missed_credit=0.13906
+- v5_irreversible_side_effect=0.00217
+- v5_wasted_action_rate=0.02708
+- v5_early_correction=0.52717
+- v5_correction_latency=0.50794
+- v5_ece=0.00257
+- v5_regret=0.07714
+- v5_utility=0.67809
+- oracle_success=0.93255
 
 Gate outcomes:
-success_gate: True
-diagnostic_gate: True
-safety_gate: True
-pairwise_gate: True
-ablation_gate: True
-success_margin_vs_strongest: 0.10471331389698757
-credit_f1_delta_vs_best_diagnostic_baseline: 0.14394754694621165
-delayed_blame_f1_delta_vs_best_diagnostic_baseline: 0.20439094424953275
-irreversible_side_effect_delta_vs_strongest: -0.023372206025267246
-wasted_action_delta_vs_strongest: -0.06282798833819243
-ablation_margin_vs_best_removed_component: 0.06224489795918364
-strongest_non_oracle_baseline: pseudo_reward_td_relabeling
-best_diagnostic_baseline: sequence_contrastive_credit
-best_removed_component: minus_compensatory_action_masking
+- success_gate: True
+- diagnostic_gate: True
+- false_credit_gate: True
+- irreversible_gate: True
+- wasted_gate: True
+- calibration_gate: True
+- utility_gate: True
+- pairwise_gate: True
+- ablation_gate: True
+- stress_gate: True
+- fixed_risk_gate: True
+- scope_gate: False
 
-Pairwise proposed comparisons:
-behavior_clone_no_credit: diff=0.328 +/- 0.009, wins=7/7, decision=proposed_better
-hindsight_success_relabeling: diff=0.242 +/- 0.007, wins=7/7, decision=proposed_better
-inverse_dynamics_saliency: diff=0.208 +/- 0.005, wins=7/7, decision=proposed_better
-oracle_event_credit_labels: diff=-0.147 +/- 0.009, wins=0/7, decision=not_decisive
-pseudo_reward_td_relabeling: diff=0.105 +/- 0.009, wins=7/7, decision=proposed_better
-sequence_contrastive_credit: diff=0.140 +/- 0.009, wins=7/7, decision=proposed_better
-transformer_attention_attribution: diff=0.171 +/- 0.009, wins=7/7, decision=proposed_better
-uniform_credit_assignment: diff=0.293 +/- 0.005, wins=7/7, decision=proposed_better
+Terminal rationale:
+- all frozen local empirical gates pass; terminal state remains STRONG_REVISE only because scope/external-validation evidence is missing
+- scope gate fails because no real robot study, accepted high-fidelity benchmark, external temporal-credit benchmark, calibrated real temporal-credit logs, trained checkpoint, or rollout videos exist
 
-Ablations:
-full_reward_free_temporal_credit_graph: success=0.641 +/- 0.008, credit_f1=0.518, delayed_blame_f1=0.498, irreversible=0.051, note=all components
-minus_compensatory_action_masking: success=0.578 +/- 0.005, credit_f1=0.442, delayed_blame_f1=0.411, irreversible=0.063, note=does not discount actions that hide earlier mistakes
-minus_counterfactual_prefix_tests: success=0.571 +/- 0.005, credit_f1=0.399, delayed_blame_f1=0.408, irreversible=0.061, note=removes prefix-level counterfactual tests
-minus_physical_precondition_graph: success=0.571 +/- 0.005, credit_f1=0.415, delayed_blame_f1=0.394, irreversible=0.061, note=removes latent physical precondition graph
-minus_confidence_gated_intervention: success=0.566 +/- 0.010, credit_f1=0.495, delayed_blame_f1=0.475, irreversible=0.080, note=diagnoses credit but does not gate corrections
-minus_delayed_eligibility_memory: success=0.542 +/- 0.006, credit_f1=0.445, delayed_blame_f1=0.318, irreversible=0.065, note=forgets long-delayed action eligibility
-attention_credit_only: success=0.468 +/- 0.003, credit_f1=0.328, delayed_blame_f1=0.244, irreversible=0.084, note=attention attribution baseline
+Ablation summary:
+- full_risk_calibrated_temporal_credit_v5: success=0.85642, credit_f1=0.59870, delayed_blame_f1=0.61823, false_credit=0.00200, utility=0.68051, note=all components
+- no_false_credit_suppression: success=0.80538, credit_f1=0.56641, delayed_blame_f1=0.59366, false_credit=0.08012, utility=0.56502, note=removes false-credit suppression
+- no_risk_calibration: success=0.79844, credit_f1=0.57361, delayed_blame_f1=0.58481, false_credit=0.01207, utility=0.56599, note=removes risk calibration
+- no_confidence_gated_correction: success=0.78247, credit_f1=0.56128, delayed_blame_f1=0.58802, false_credit=0.00174, utility=0.49077, note=diagnoses credit but does not gate corrections
+- no_counterfactual_prefix_tests: success=0.76710, credit_f1=0.46528, delayed_blame_f1=0.55634, false_credit=0.00339, utility=0.51612, note=removes prefix-level counterfactual tests
+- no_physical_precondition_graph: success=0.75833, credit_f1=0.48828, delayed_blame_f1=0.49965, false_credit=0.00868, utility=0.48879, note=removes latent physical precondition graph
+- no_compensatory_action_masking: success=0.75460, credit_f1=0.51562, delayed_blame_f1=0.51970, false_credit=0.05530, utility=0.49048, note=does not discount actions that hide earlier mistakes
+- v4_temporal_credit_rules: success=0.75313, credit_f1=0.51111, delayed_blame_f1=0.51641, false_credit=0.03750, utility=0.47293, note=prior v4 rule proxy
+- no_delayed_eligibility_memory: success=0.73863, credit_f1=0.54262, delayed_blame_f1=0.37595, false_credit=0.00313, utility=0.46274, note=forgets long-delayed action eligibility
+- pseudo_reward_td_only: success=0.63073, credit_f1=0.36345, delayed_blame_f1=0.39931, false_credit=0.12700, utility=0.13527, note=strong pseudo-reward reference
+
+Fixed-risk strict v5: coverage=1.00000, success=0.86059, false_credit=0.00295, missed_credit=0.15451, irreversible=0.00174, wasted=0.02726, utility=0.67982
+
+No human-subject, hardware, or external high-fidelity validation is claimed; this is a local CPU-only executable surrogate audit.
+terminal=STRONG_REVISE

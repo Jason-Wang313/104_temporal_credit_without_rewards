@@ -21,8 +21,8 @@ The paper's boundary is reward-free physical credit. A pseudo-reward method can 
 
 ## Local Evidence
 
-The v4 benchmark supports the boundary under combined stress: proposed success is `0.636 +/- 0.006` versus `0.531 +/- 0.007` for the strongest non-oracle baseline, credit F1 is `0.520`, and delayed-blame F1 is `0.497`.
+The v5 benchmark supports the boundary under hard splits: v5 success is `0.85078 +/- 0.00548` versus `0.75408 +/- 0.01010` for the strongest non-oracle success reference, credit F1 is `0.59262`, delayed-blame F1 is `0.62083`, false credit is `0.00234`, and utility is `0.67809`.
 
 ## Remaining Gap
 
-The literature boundary is credible enough for strong revise, but not for submission. The next version needs external robot/high-fidelity experiments and implemented learned baselines.
+The literature boundary is credible enough for strong revise, but not for submission. The next version needs external robot/high-fidelity experiments, implemented learned baselines, calibrated real temporal-credit logs, and external benchmark evidence.

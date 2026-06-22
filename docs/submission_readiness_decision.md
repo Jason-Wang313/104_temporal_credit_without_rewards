@@ -4,6 +4,6 @@ Decision: STRONG_REVISE
 
 ICLR main-conference readiness: NO.
 
-The v4.1 continuation rerun provides a paper-specific local benchmark, strong synthetic baselines, ablations, pairwise seed comparisons, stress sweeps, failure cases, finite CSV artifacts, and generated figures/tables. The evidence supports the mechanism: on combined stress, the proposed reward-free temporal credit graph reaches `0.6356 +/- 0.0055` success versus `0.5309 +/- 0.0075` for the strongest non-oracle baseline, with lower irreversible side effects and fewer wasted actions.
+The v5 rebuild provides a paper-specific local benchmark, strong synthetic baselines, ablations, pairwise seed comparisons, stress sweeps, fixed-risk correction, negative cases, finite CSV artifacts, generated figures/tables, and a 26-page manuscript with boxed clickable citations. The evidence supports the mechanism: on hard splits, v5 reaches `0.85078 +/- 0.00548` success versus `0.75408 +/- 0.01010` for the strongest non-oracle success reference, with credit F1 `0.59262`, delayed-blame F1 `0.62083`, false credit `0.00234`, irreversible side effect `0.00217`, wasted action `0.02708`, and utility `0.67809`.
 
-The honest terminal action is strong-revise, not submit. A submission-quality revival still requires real robot or independent high-fidelity simulator validation, implemented learned baselines, and external benchmark evidence.
+The honest terminal action is strong-revise, not submit. A submission-quality revival still requires real robot or independent high-fidelity simulator validation, implemented learned baselines, calibrated real temporal-credit logs, rollout videos, and external benchmark evidence.

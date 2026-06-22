@@ -1,11 +1,12 @@
 # Child Status 104
 
-Current stage: ICLR-main-target evidence rebuild terminal
-Last update: 2026-06-15 16:25:50 +0100
+Current stage: v5 expanded hostile-review rebuild complete
+Last update: 2026-06-22 16:56:45 +08:00
 PDF: C:/Users/wangz/Downloads/104.pdf
-PDF SHA256: FE049893E561B30B19597EF6C06EAB44DC379339EA3759B4DF5C24EDDE9021C1
+PDF pages: 26
+PDF SHA256: 8ED1042D54E0B6E1570929F513B5376AEA4ACA2F6B239418686E2D7CCE988A3A
 GitHub: https://github.com/Jason-Wang313/104_temporal_credit_without_rewards
-Submission-hardening version: v4.1
+Submission-hardening version: v5 expanded
 Terminal decision: STRONG_REVISE
 ICLR main ready: no
-Reason not ready: v4.1 local benchmark evidence is positive, but real-robot or independent high-fidelity validation is still missing.
+Reason not ready: all frozen local empirical gates pass, but the scope gate still fails without real-robot, accepted high-fidelity simulator, external benchmark, calibrated real temporal-credit logs, trained checkpoint, or rollout-video evidence.
